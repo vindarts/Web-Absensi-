@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2 style="color:white; text-align:center;">Menu</h2>
+        <a href="{{ url_for('dashboard') }}">📊 Dashboard</a>
+        <a href="{{ url_for('kelola') }}">👥 Kelola Karyawan/Magang</a>
+        <a href="{{ url_for('index') }}">🎥 Absensi</a>
+    </div>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const currentUrl = window.location.href; // Mengambil URL saat ini
+    const links = document.querySelectorAll('.sidebar a');
+    links.forEach(link => {
+        if (link.href === currentUrl) {
+            link.classList.add('active'); // Menambahkan kelas active pada link yang sesuai
+        }
+    });
+});
+</script>
+</html>
+
+

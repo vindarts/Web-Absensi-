@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f6fa;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: #ED1E28;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 12px;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background-color: #B6252A;
+}
+
+.sidebar a.active {
+    background-color: #B6252A; /* Warna saat item sidebar aktif */
+}
+.content {
+    margin-left: 240px;
+    padding: 20px;
+}
+
+h2 {
+    color: #55565B;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table, th, td {
+    border: 1px solid #959597;
+    text-align: center;
+    padding: 10px;
+}
+
+th {
+    background-color: #959597;
+    color: white;
+}
+
+.overview-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+

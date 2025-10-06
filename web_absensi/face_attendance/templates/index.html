@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Absensi dengan Deteksi Wajah</h2>
+<p>Kamera akan mendeteksi wajah otomatis. Jika berhasil, data absensi langsung tersimpan.</p>
+
+<video id="video" width="500" height="375" autoplay></video>
+<p id="notif" style="font-weight:bold; color:blue;"></p>
+
+<script>
+    const video = document.getElementById("video");
+    const notif = document.getElementById("notif");
+
+    // akses kamera
+    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+        video.srcObject = stream;
+    });
+
+    function captureFrame() {
+        const canvas = document.createElement("canvas");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext("2d").drawImage(video, 0, 0);
+
+        canvas.toBlob(blob => {
+            const formData = new FormData();
+            formData.append("frame", blob, "frame.jpg");
+
+            fetch("/absen", {
+                method: "POST",
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                notif.innerText = data.msg;
+                notif.style.color = data.status === "sukses" ? "green" : 
+                                    data.status === "sudah" ? "orange" : "red";
+            })
+            .catch(err => {
+                console.error(err);
+                notif.innerText = "Error koneksi!";
+                notif.style.color = "red";
+            });
+        }, "image/jpeg");
+    }
+
+    // loop tiap 5 detik untuk capture
+    setInterval(captureFrame, 5000);
+</script>
+{% endblock %}
